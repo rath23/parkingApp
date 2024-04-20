@@ -1,7 +1,13 @@
 package com.myComp.parkingApp.Models;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class VehicalModel {
+    
+    @NotBlank(message = "Vehical owner name is required.")
     private String ownerName;
+    private String vehicleModel;
     private String vehicalType;
     private String vehicalNumber;
     
@@ -27,5 +33,13 @@ public class VehicalModel {
 
     public void setVehicalType(String vehicalType) {
         this.vehicalType = vehicalType;
+    }
+
+    public String getVehicleModel() {
+        return vehicleModel;
+    }
+
+    public void setVehicleModel(String carModel) {
+        this.vehicleModel = carModel;
     }
 }

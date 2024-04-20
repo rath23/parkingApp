@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 import com.myComp.parkingApp.Models.VehicalModel;
 import com.myComp.parkingApp.Service.VehicalService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
@@ -27,7 +29,7 @@ public class ParkingControler {
     }
     
     @PostMapping("/addVehical")
-    public ResponseEntity<?> addVehicle(@RequestBody VehicalModel vehicalModel) {
+    public ResponseEntity<?> addVehicle(@Valid @RequestBody VehicalModel vehicalModel) {
         return vehicalService.addVehical(vehicalModel);
     }
 

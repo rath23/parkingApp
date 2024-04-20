@@ -47,7 +47,7 @@ public class VehicalServiceImpl implements VehicalService{
     public ResponseEntity<?> getVehecial(String vehicalNumber) {
         Optional<VehicalEntity> checkEntity = vehicalRepository.findById(vehicalNumber);
         if(checkEntity.isEmpty()){
-            throw new VehicalNotFound("There is no vehical with this vehical number.");
+            throw new VehicalNotFound("There is no vehicle with this vehicle number.");
         }
         VehicalModel vehicalModel = new VehicalModel();
         VehicalEntity vehicalEntity = vehicalRepository.findById(vehicalNumber).get();
@@ -59,7 +59,7 @@ public class VehicalServiceImpl implements VehicalService{
     public ResponseEntity<?> addVehical(VehicalModel vehicalModel) {
         Optional<VehicalEntity> existingVehicle = vehicalRepository.findById(vehicalModel.getVehicalNumber());
         if(existingVehicle.isPresent()) {
-            throw new VehicalExist("Vehical Number already exists.");
+            throw new VehicalExist("Vehicle Number already exists.");
         }
         VehicalEntity vehicalEntity = new VehicalEntity();
         BeanUtils.copyProperties(vehicalModel, vehicalEntity);
@@ -76,6 +76,7 @@ public class VehicalServiceImpl implements VehicalService{
         VehicalEntity vehicalEntity = vehicalRepository.findById(vehicalNumber).get();
         vehicalEntity.setOwnerName(vehicalModel.getOwnerName());
         vehicalEntity.setVehicalType(vehicalModel.getVehicalType());
+        vehicalEntity.setVehicleModel(vehicalModel.getVehicleModel());
         vehicalRepository.save(vehicalEntity);
         return  ResponseEntity.ok().body(vehicalModel);
     }

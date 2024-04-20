@@ -2,6 +2,7 @@ package com.myComp.parkingApp.Exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -31,5 +32,12 @@ public class GlobalExceptonalHandler {
     @ExceptionHandler(DeletionError.class)
     public  ResponseEntity<?> deletionError(DeletionError ex){
         return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @SuppressWarnings("null")
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleValidationExceptio(MethodArgumentNotValidException ex){
+        String errorMessage = ex.getBindingResult().getFieldError().getDefaultMessage();
+        return ResponseEntity.badRequest().body(errorMessage);
     }
 }

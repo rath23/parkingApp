@@ -10,6 +10,7 @@ public class VehicalEntity {
 
     private String ownerName;
     private String vehicalType;
+    private String vehicleModel;
     @Id
     private String vehicalNumber;
     
