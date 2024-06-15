@@ -1,21 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Car Number Plate Capture</title>
-    <script>
-        function sendCaptureRequest() {
-            let socket = new WebSocket("ws://localhost:8080/ws/number-plate");
-            socket.onopen = function() {
-                socket.send("Capture Number Plate");
-                socket.onmessage = function(event) {
-                    alert(event.data);
-                }
-            };
-        }
-    </script>
+    <title>Capture Number Plate</title>
 </head>
 <body>
-    <button onclick="sendCaptureRequest()">Capture Number Plate</button>
+<button onclick="captureNumberPlate()">Capture Number Plate</button>
+
+<script type="text/javascript">
+    function captureNumberPlate() {
+        var socket = new WebSocket("ws://localhost:8080/websocket/numberPlate");
+
+        socket.onopen = function() {
+            socket.send("Capture number plate");
+        };
+
+        socket.onmessage = function(event) {
+            alert(event.data);
+        };
+
+        socket.onclose = function() {
+            console.log("WebSocket connection closed");
+        };
+
+        socket.onerror = function(error) {
+            console.error("WebSocket error:", error);
+        };
+    }
+</script>
 </body>
 </html>

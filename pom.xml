@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.6</version>
+		<version>3.3.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.myComp</groupId>
@@ -90,16 +90,18 @@
 <dependency>
     <groupId>org.openpnp</groupId>
     <artifactId>opencv</artifactId>
-    <version>3.4.2-0</version>
+	<version>4.9.0-0</version>
 </dependency>
 
 
 
-	<dependency>
-	    <groupId>net.sourceforge.tess4j</groupId>
-	    <artifactId>tess4j</artifactId>
-	    <version>4.5.3</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j -->
+		<dependency>
+			<groupId>net.sourceforge.tess4j</groupId>
+			<artifactId>tess4j</artifactId>
+			<version>5.11.0</version>
+		</dependency>
+
 
 
 

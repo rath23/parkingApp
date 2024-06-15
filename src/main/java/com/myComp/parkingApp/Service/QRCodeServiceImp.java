@@ -28,7 +28,7 @@ public class QRCodeServiceImp  implements QRCodeService{
     @Override
     public byte[] generateQRCodeFromUser(String email, int width, int height) throws WriterException, IOException {
         Optional<UserEntity> userOptional = userRepository.findById(email);
-        if (!userOptional.isPresent()) {
+        if (userOptional.isEmpty()) {
             throw new IllegalArgumentException("User not found");
         }
 
