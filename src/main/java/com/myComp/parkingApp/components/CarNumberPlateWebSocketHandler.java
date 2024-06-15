@@ -6,6 +6,7 @@ import net.sourceforge.tess4j.TesseractException;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfRect;
 import org.opencv.core.Rect;
+import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.objdetect.CascadeClassifier;
@@ -78,7 +79,7 @@ public class CarNumberPlateWebSocketHandler extends TextWebSocketHandler {
     }
 
     private String detectNumberPlate(Mat frame) {
-        CascadeClassifier numberPlateCascade = new CascadeClassifier("src/main/resources/haarcascade_license_plate_rus_16stages.xml");
+        CascadeClassifier numberPlateCascade = new CascadeClassifier("src/main/resources/haarcascade_russian_plate_number.xml");
 
         if (numberPlateCascade.empty()) {
             System.out.println("Error: Cascade classifier file not loaded");
@@ -87,13 +88,13 @@ public class CarNumberPlateWebSocketHandler extends TextWebSocketHandler {
 
         Mat grayFrame = new Mat();
         Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY);
-        Imgproc.GaussianBlur(grayFrame, grayFrame, new org.opencv.core.Size(5, 5), 0);
+        Imgproc.GaussianBlur(grayFrame, grayFrame, new Size(5, 5), 0);
 
         // Edge Detection
         Imgproc.Canny(grayFrame, grayFrame, 100, 200);
 
         // Morphological Operations
-        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new org.opencv.core.Size(3, 3));
+        Mat kernel = Imgproc.getStructuringElement(Imgproc.MORPH_RECT, new Size(3, 3));
         Imgproc.morphologyEx(grayFrame, grayFrame, Imgproc.MORPH_CLOSE, kernel);
 
         MatOfRect numberPlates = new MatOfRect();
@@ -110,7 +111,7 @@ public class CarNumberPlateWebSocketHandler extends TextWebSocketHandler {
 
             // Additional preprocessing
             Mat processedNumberPlate = new Mat();
-            Imgproc.resize(numberPlate, processedNumberPlate, new org.opencv.core.Size(300, 100));
+            Imgproc.resize(numberPlate, processedNumberPlate, new Size(300, 100));
             Imgproc.medianBlur(processedNumberPlate, processedNumberPlate, 3);
 
             Imgcodecs.imwrite("detected_number_plate.jpg", processedNumberPlate); // Save the processed number plate
